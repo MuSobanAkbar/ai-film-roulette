@@ -157,7 +157,9 @@ async def save_to_watch_later(
 def me(user_id: str = Depends(get_current_user_id)):
     return {"user_id": user_id}
 
-
+@app.get("/api/watch-later")
+def get_watch_later(user_id: str = Depends(get_current_user_id)):
+    return db.list_watch_later(user_id)
 
 if os.path.exists("frontend/dist"):
   app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
